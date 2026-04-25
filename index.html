@@ -212,7 +212,7 @@
 
   .hero-ctas {
     margin-top: 2.5rem;
-    display: flex; gap: 1rem; align-items: center;
+    display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;
     opacity: 0;
     animation: fadeUp 0.9s 0.65s forwards;
   }
@@ -231,6 +231,29 @@
     text-transform: uppercase;
   }
   .btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 0.88rem;
+    letter-spacing: 0.04em;
+    padding: 0.85rem 2rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .btn-secondary:hover {
+    border-color: var(--accent);
+    background: rgba(245,166,35,0.08);
+    transform: translateY(-2px);
+  }
   .btn-ghost {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.78rem;
@@ -307,17 +330,88 @@
   #about { max-width: 1200px; margin: 0 auto; }
   .about-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 380px 1fr;
     gap: 4rem;
     align-items: start;
+    margin-bottom: 3rem;
+  }
+  .about-image-wrapper {
+    position: sticky;
+    top: 120px;
+  }
+  .about-image {
+    width: 100%;
+    aspect-ratio: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+  }
+  .about-image::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--grad);
+  }
+  .about-image-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(245,166,35,0.06) 0%, rgba(255,107,53,0.04) 100%);
+  }
+  .about-image-placeholder svg {
+    width: 120px;
+    height: 120px;
+    color: var(--muted);
+    opacity: 0.4;
+  }
+  .about-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
   }
   .about-text p {
     color: var(--muted);
     font-size: 1.05rem;
     margin-bottom: 1.2rem;
     font-weight: 300;
+    line-height: 1.8;
   }
   .about-text p strong { color: var(--text); font-weight: 500; }
+  .about-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    padding: 2rem 0;
+    border-top: 1px solid var(--border);
+  }
+  .stat-item {
+    text-align: center;
+  }
+  .stat-value {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 2.2rem;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+  }
+  .stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .edu-section {
+    margin-top: 2rem;
+  }
   .edu-card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -852,7 +946,10 @@
     .nav-hamburger { display: flex; }
     #hero { padding: 0 1.5rem 4rem; }
     section { padding: 4rem 1.5rem; }
-    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .about-image-wrapper { position: relative; top: 0; }
+    .about-image { max-width: 320px; margin: 0 auto; }
+    .about-stats { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
     .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
     .projects-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
     .skills-layout { grid-template-columns: 1fr 1fr; }
@@ -866,7 +963,8 @@
   @media (max-width: 600px) {
     .hero-name { font-size: clamp(3rem, 14vw, 5rem); }
     .hero-sub { font-size: 0.95rem; }
-    .hero-ctas { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+    .hero-ctas { flex-direction: column; align-items: flex-start; gap: 0.75rem; width: 100%; }
+    .btn-primary, .btn-secondary, .btn-ghost { width: 100%; justify-content: center; }
     .section-title { font-size: clamp(1.7rem, 7vw, 2.4rem); }
     .projects-grid { grid-template-columns: 1fr; }
     .skills-layout { grid-template-columns: 1fr; }
@@ -882,6 +980,8 @@
     footer { padding: 1.5rem; }
     .hero-scroll { display: none; }
     .cursor, .cursor-ring { display: none; }
+    .about-stats { grid-template-columns: 1fr; gap: 1.5rem; text-align: left; padding: 1.5rem 0; }
+    .stat-item { text-align: left; }
   }
 
   /* SMALL MOBILE — 400px */
@@ -936,6 +1036,12 @@
   </p>
   <div class="hero-ctas">
     <a href="#projects" class="btn-primary">View Projects</a>
+    <a href="./Moaz_Nadeem_CV.pdf" class="btn-secondary" download="Moaz_Nadeem_CV.pdf">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+      </svg>
+      Download CV
+    </a>
     <a href="mailto:muazndm128@gmail.com" class="btn-ghost">
       Let's talk
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -955,38 +1061,62 @@
   <div class="section-label">01 &mdash; About</div>
   <h2 class="section-title">Who I Am</h2>
   <div class="about-grid reveal">
-    <div class="about-text">
-      <p>
-        I'm a <strong>Computer Science student at GIKI</strong>, one of Pakistan's top engineering institutes, with a deep interest in building impactful software — from full-stack web apps to AI-powered systems.
-      </p>
-      <p>
-        I thrive at the intersection of <strong>frontend craft and backend logic</strong>. Whether it's a sleek React UI or a Python ML pipeline, I care about the details that make products feel intentional.
-      </p>
-      <p>
-        Outside coursework, I contribute to the <strong>Microsoft Club GIKI</strong>, co-lead hackathons, and regularly compete in competitive programming contests. I believe in learning by shipping.
-      </p>
-      <p>
-        Currently open to <strong>internship and collaboration opportunities</strong> in frontend development, AI/ML, and full-stack engineering.
-      </p>
-    </div>
-    <div>
-      <div class="edu-card">
-        <div class="edu-institute">Ghulam Ishaq Khan Institute</div>
-        <div class="edu-degree">BS Computer Science</div>
-        <div class="edu-meta">Sep 2023 – May 2027 &nbsp;·&nbsp; CGPA: 3.00</div>
-        <div class="courses-label">Core Courses</div>
-        <div class="courses-grid">
-          <span class="course-tag">DSA</span>
-          <span class="course-tag">OOP</span>
-          <span class="course-tag">Database Systems</span>
-          <span class="course-tag">Machine Learning</span>
-          <span class="course-tag">Operating Systems</span>
-          <span class="course-tag">Linear Algebra</span>
-          <span class="course-tag">Theory of Automata</span>
-          <span class="course-tag">Comp. Architecture</span>
-          <span class="course-tag">Statistics & Prob.</span>
-          <span class="course-tag">Discrete Math</span>
+    <div class="about-image-wrapper">
+      <div class="about-image">
+        <div class="about-image-placeholder">
+          <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
         </div>
+      </div>
+    </div>
+    <div class="about-content">
+      <div class="about-text">
+        <p>
+          I'm a <strong>Computer Science student at GIKI</strong>, one of Pakistan's top engineering institutes, with a deep interest in building impactful software — from full-stack web apps to AI-powered systems.
+        </p>
+        <p>
+          I thrive at the intersection of <strong>frontend craft and backend logic</strong>. Whether it's a sleek React UI or a Python ML pipeline, I care about the details that make products feel intentional.
+        </p>
+        <p>
+          Outside coursework, I contribute to the <strong>Microsoft Club GIKI</strong>, co-lead hackathons, and regularly compete in competitive programming contests. I believe in learning by shipping.
+        </p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-item">
+          <div class="stat-value">3+</div>
+          <div class="stat-label">Projects Built</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">1</div>
+          <div class="stat-label">Internship</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">GIKI</div>
+          <div class="stat-label">BS CS Student</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="edu-section reveal">
+    <div class="edu-card">
+      <div class="edu-institute">Ghulam Ishaq Khan Institute</div>
+      <div class="edu-degree">BS Computer Science</div>
+      <div class="edu-meta">Sep 2023 – May 2027 &nbsp;·&nbsp; CGPA: 3.00</div>
+      <div class="courses-label">Core Courses</div>
+      <div class="courses-grid">
+        <span class="course-tag">DSA</span>
+        <span class="course-tag">OOP</span>
+        <span class="course-tag">Database Systems</span>
+        <span class="course-tag">Machine Learning</span>
+        <span class="course-tag">Operating Systems</span>
+        <span class="course-tag">Linear Algebra</span>
+        <span class="course-tag">Theory of Automata</span>
+        <span class="course-tag">Comp. Architecture</span>
+        <span class="course-tag">Statistics & Prob.</span>
+        <span class="course-tag">Discrete Math</span>
       </div>
     </div>
   </div>
