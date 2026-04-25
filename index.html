@@ -355,19 +355,11 @@
     height: 3px;
     background: var(--grad);
   }
-  .about-image-placeholder {
+  .about-image img {
     width: 100%;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, rgba(245,166,35,0.06) 0%, rgba(255,107,53,0.04) 100%);
-  }
-  .about-image-placeholder svg {
-    width: 120px;
-    height: 120px;
-    color: var(--muted);
-    opacity: 0.4;
+    object-fit: cover;
+    display: block;
   }
   .about-content {
     display: flex;
@@ -1063,12 +1055,7 @@
   <div class="about-grid reveal">
     <div class="about-image-wrapper">
       <div class="about-image">
-        <div class="about-image-placeholder">
-          <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
-            <circle cx="12" cy="7" r="4"/>
-          </svg>
-        </div>
+        <img src="./profile.png" alt="Moaz Nadeem" style="width: 100%; height: 100%; object-fit: cover;" />
       </div>
     </div>
     <div class="about-content">
@@ -1085,7 +1072,7 @@
       </div>
       <div class="about-stats">
         <div class="stat-item">
-          <div class="stat-value">3+</div>
+          <div class="stat-value">7+</div>
           <div class="stat-label">Projects Built</div>
         </div>
         <div class="stat-item">
