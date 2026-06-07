@@ -848,6 +848,213 @@
     .form-row { grid-template-columns: 1fr; }
   }
 
+  /* PROJECT FILTERS */
+  .project-filters {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 0.45rem 1rem;
+    border-radius: 2px;
+    cursor: pointer;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: all 0.25s;
+  }
+  .filter-btn:hover { border-color: var(--accent); color: var(--text); }
+  .filter-btn.active {
+    background: var(--grad);
+    color: #0a0a0c;
+    border-color: transparent;
+    font-weight: 500;
+  }
+
+  /* PROJECT MODAL */
+  .project-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10,10,12,0.92);
+    backdrop-filter: blur(20px);
+    z-index: 2000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+  .project-modal-overlay.open {
+    display: flex;
+  }
+  .project-modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    max-width: 720px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    padding: 2.5rem;
+    animation: modalIn 0.3s ease;
+  }
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .project-modal::-webkit-scrollbar { width: 4px; }
+  .project-modal::-webkit-scrollbar-track { background: transparent; }
+  .project-modal::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  .project-modal-close {
+    position: absolute;
+    top: 1.25rem; right: 1.25rem;
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.1rem;
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .project-modal-close:hover { border-color: var(--accent); color: var(--text); }
+  .modal-category {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--accent);
+    background: rgba(245,166,35,0.1);
+    border: 1px solid rgba(245,166,35,0.25);
+    padding: 0.2rem 0.6rem;
+    border-radius: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-right: 0.4rem;
+    margin-bottom: 0.4rem;
+  }
+  .modal-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin: 0.75rem 0 0.25rem;
+    letter-spacing: -0.02em;
+    padding-right: 2.5rem;
+  }
+  .modal-tagline {
+    font-size: 1rem;
+    color: var(--accent);
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+  }
+  .modal-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+  .modal-details {
+    list-style: none;
+    margin-bottom: 1.5rem;
+  }
+  .modal-details li {
+    color: var(--muted);
+    font-size: 0.92rem;
+    font-weight: 300;
+    margin-bottom: 0.75rem;
+    padding-left: 1.2rem;
+    position: relative;
+    line-height: 1.7;
+  }
+  .modal-details li::before {
+    content: '→';
+    position: absolute; left: 0;
+    color: var(--accent);
+    font-size: 0.8rem;
+  }
+  .modal-stack {
+    display: flex; flex-wrap: wrap; gap: 0.4rem;
+    margin-bottom: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .modal-links {
+    display: flex; gap: 0.75rem;
+    padding-top: 1rem;
+  }
+  .modal-link {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0.55rem 1.2rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    transition: all 0.2s;
+    letter-spacing: 0.04em;
+  }
+  .modal-link:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: rgba(245,166,35,0.06);
+  }
+
+  .project-card .card-category-dots {
+    display: flex; gap: 0.35rem;
+    margin-bottom: 0.75rem;
+  }
+  .cat-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    opacity: 0.7;
+  }
+  .cat-dot.fullstack { background: #f5a623; }
+  .cat-dot.ai { background: #a3e635; }
+  .cat-dot.devops { background: #38bdf8; }
+  .cat-dot.systems { background: #c084fc; }
+
+  .project-card.hiding {
+    opacity: 0;
+    transform: scale(0.95);
+    pointer-events: none;
+    position: absolute;
+    visibility: hidden;
+  }
+  .projects-grid {
+    transition: height 0.3s ease;
+  }
+
+  /* ADMIN LINK */
+  .admin-fab {
+    position: fixed;
+    bottom: 1.5rem; right: 1.5rem;
+    width: 44px; height: 44px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1500;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted);
+    text-decoration: none;
+    transition: all 0.2s;
+    opacity: 0.4;
+  }
+  .admin-fab:hover { opacity: 1; border-color: var(--accent); color: var(--accent); }
+
+  @media (max-width: 600px) {
+    .project-modal { padding: 1.75rem; }
+    .modal-title { font-size: 1.4rem; }
+    .modal-links { flex-direction: column; }
+    .modal-link { width: 100%; justify-content: center; }
+  }
+
   /* ANIMATIONS */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(30px); }
@@ -1028,7 +1235,7 @@
   </p>
   <div class="hero-ctas">
     <a href="#projects" class="btn-primary">View Projects</a>
-    <a href="./Moaz_Nadeem_Resume.pdf" class="btn-secondary" target="_blank" rel="noopener noreferrer">
+    <a href="./moaz-nadeem-resume.pdf" class="btn-secondary" target="_blank" rel="noopener noreferrer">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
       </svg>
@@ -1072,7 +1279,7 @@
       </div>
       <div class="about-stats">
         <div class="stat-item">
-          <div class="stat-value">7+</div>
+          <div class="stat-value">13+</div>
           <div class="stat-label">Projects Built</div>
         </div>
         <div class="stat-item">
@@ -1137,91 +1344,23 @@
 <section id="projects">
   <div class="section-label">03 &mdash; Projects</div>
   <h2 class="section-title">Things I've Built</h2>
-  <div class="projects-grid">
-    <div class="project-card reveal">
-      <div class="project-number">01</div>
-      <div class="project-name">Rahgir</div>
-      <div class="project-desc">City-wide ride booking platform with real-time traffic data integration into the booking algorithm for improved route efficiency.</div>
-      <div class="project-stack">
-        <span class="stack-tag">Flask</span>
-        <span class="stack-tag">HTML</span>
-        <span class="stack-tag">CSS</span>
-        <span class="stack-tag">JavaScript</span>
-      </div>
-      <div class="project-date">Mar 2025 – May 2025</div>
-    </div>
-    <div class="project-card reveal" style="transition-delay:0.1s">
-      <div class="project-number">02</div>
-      <div class="project-name">Pulse</div>
-      <div class="project-desc">AI-powered productivity platform focused on single-task focus, smart scheduling, and habit optimization using intelligent behavior pattern analysis.</div>
-      <div class="project-stack">
-        <span class="stack-tag">Full-Stack</span>
-        <span class="stack-tag">AI</span>
-        <span class="stack-tag">REST API</span>
-      </div>
-      <div class="project-date">Nov 2025 – Dec 2025</div>
-    </div>
-    <div class="project-card reveal" style="transition-delay:0.2s">
-      <div class="project-number">03</div>
-      <div class="project-name">Learning Management System</div>
-      <div class="project-desc">Grade processing tool that handles CSV student data and generates statistical results for up to 500 students, with role-based dashboards.</div>
-      <div class="project-stack">
-        <span class="stack-tag">Python</span>
-        <span class="stack-tag">Flask</span>
-        <span class="stack-tag">HTML/CSS</span>
-        <span class="stack-tag">JavaScript</span>
-      </div>
-      <div class="project-date">Jul 2023 – Aug 2023</div>
-    </div>
-    <div class="project-card reveal" style="transition-delay:0.3s">
-      <div class="project-number">04</div>
-      <div class="project-name">Cash Flow Minimizer</div>
-      <div class="project-desc">Terminal app optimizing cash flow management across accounts. Analyzes transaction patterns to minimize transfers and prioritize urgent expenses.</div>
-      <div class="project-stack">
-        <span class="stack-tag">Python</span>
-        <span class="stack-tag">Algorithms</span>
-        <span class="stack-tag">CLI</span>
-      </div>
-      <div class="project-date">2024</div>
-    </div>
-    <div class="project-card reveal" style="transition-delay:0.4s">
-      <div class="project-number">05</div>
-      <div class="project-name">Elevator Control System</div>
-      <div class="project-desc">Hardware/software elevator controller using digital logic design principles. Efficient queue management and real-time control system.</div>
-      <div class="project-stack">
-        <span class="stack-tag">Digital Logic</span>
-        <span class="stack-tag">Hardware</span>
-        <span class="stack-tag">C</span>
-      </div>
-      <div class="project-date">2024</div>
-    </div>
-    <div class="project-card reveal" style="transition-delay:0.5s">
-      <div class="project-number">06</div>
-      <div class="project-name">RISC-V Processor Design</div>
-      <div class="project-desc">Educational RISC-V processor implementation in Verilog. Includes ALU, control unit, and register file demonstrating core processor functionality.</div>
-      <div class="project-stack">
-        <span class="stack-tag">Verilog</span>
-        <span class="stack-tag">RISC-V</span>
-        <span class="stack-tag">Computer Architecture</span>
-        <span class="stack-tag">Digital Logic</span>
-      </div>
-      <div class="project-date">2025</div>
-    </div>
-    <div class="project-card reveal" style="transition-delay:0.6s">
-      <div class="project-number">07</div>
-      <div class="project-name">Rizq Rescue Agent</div>
-      <div class="project-desc">AI-powered voice agent acting as an intelligent intermediary between restaurants/wedding halls and NGOs, ensuring surplus food reaches those in need instead of ending up in the trash. Collects food details via natural voice interactions, extracts structured donation data using AI, instantly notifies relevant NGOs, and updates a real-time dashboard for tracking and transparency.</div>
-      <div class="project-stack">
-        <span class="stack-tag">Soniox</span>
-        <span class="stack-tag">Google Gemini Flash</span>
-        <span class="stack-tag">ElevenLabs</span>
-        <span class="stack-tag">FastAPI</span>
-        <span class="stack-tag">Next.js</span>
-      </div>
-      <div class="project-date">2026</div>
-    </div>
-  </div>
+  <div class="project-filters" id="projectFilters"></div>
+  <div class="projects-grid" id="projectsGrid"></div>
 </section>
+
+<!-- PROJECT MODAL -->
+<div class="project-modal-overlay" id="projectModal">
+  <div class="project-modal">
+    <button class="project-modal-close" id="modalClose">&times;</button>
+    <div id="modalCategories"></div>
+    <div class="modal-title" id="modalTitle"></div>
+    <div class="modal-tagline" id="modalTagline"></div>
+    <div class="modal-date" id="modalDate"></div>
+    <ul class="modal-details" id="modalDetails"></ul>
+    <div class="modal-stack" id="modalStack"></div>
+    <div class="modal-links" id="modalLinks"></div>
+  </div>
+</div>
 
 <!-- SKILLS -->
 <section id="skills">
@@ -1401,11 +1540,430 @@
   </footer>
 </section>
 
+<a href="./admin.html" class="admin-fab" title="Admin Dashboard">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12.22 2h-.44a2 2 0 00-2 2v.18a2 2 0 01-1 1.73l-.43.25a2 2 0 01-2 0l-.15-.08a2 2 0 00-2.73.73l-.22.38a2 2 0 00.73 2.73l.15.1a2 2 0 011 1.72v.51a2 2 0 01-1 1.74l-.15.09a2 2 0 00-.73 2.73l.22.38a2 2 0 002.73.73l.15-.08a2 2 0 012 0l.43.25a2 2 0 011 1.73V20a2 2 0 002 2h.44a2 2 0 002-2v-.18a2 2 0 011-1.73l.43-.25a2 2 0 012 0l.15.08a2 2 0 002.73-.73l.22-.39a2 2 0 00-.73-2.73l-.15-.08a2 2 0 01-1-1.74v-.5a2 2 0 011-1.74l.15-.09a2 2 0 00.73-2.73l-.22-.38a2 2 0 00-2.73-.73l-.15.08a2 2 0 01-2 0l-.43-.25a2 2 0 01-1-1.73V4a2 2 0 00-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+</a>
+
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
   emailjs.init('h84NjeaKpRqZOFOxh');
 </script>
 <script>
+  // ===== PROJECT DATA =====
+  const defaultProjects = [
+    {
+      id: 'company-research-agent',
+      name: 'Company Research Agent',
+      tagline: 'Multi-Agent LangGraph Pipeline',
+      shortDesc: 'Autonomous 4-agent pipeline using LangGraph with human-in-the-loop clarification for real-time company research and structured report generation.',
+      details: [
+        'Engineered a 4-agent autonomous pipeline (Clarity → Research → Validator → Synthesis) using LangGraph with human-in-the-loop clarification — Clarity agent pauses the graph and prompts the user when company context is ambiguous before proceeding',
+        'Integrated Tavily web search and Groq LLM for real-time research with confidence scoring (0–10); Validator agent loops research up to 3 retry attempts on insufficient results before routing to a Synthesis agent that generates structured markdown reports'
+      ],
+      stack: ['LangGraph', 'Tavily', 'Groq', 'Python', 'Multi-Agent'],
+      categories: ['ai'],
+      date: 'May 2026',
+      github: '',
+      liveUrl: ''
+    },
+    {
+      id: 'interviewiq',
+      name: 'InterviewIQ',
+      tagline: 'AI-Powered Interview Coaching Platform',
+      shortDesc: 'Full-stack interview prep system with real-time speech transcription, LLM-generated question banks, and session-level performance tracking.',
+      details: [
+        'Built a full-stack interview preparation system using Next.js, FastAPI, and Supabase, featuring real-time speech transcription via Groq Whisper API and LLM-generated question banks across 6+ job roles with 7 questions per session',
+        'Designed a session tracking system storing per-answer speech metrics, emotion scores, and coaching events across sessions to quantify candidate improvement over time'
+      ],
+      stack: ['Next.js', 'FastAPI', 'Supabase', 'Groq Whisper', 'LLM'],
+      categories: ['fullstack', 'ai'],
+      date: 'Apr 2026',
+      github: '',
+      liveUrl: ''
+    },
+    {
+      id: 'cicd-pipeline',
+      name: 'CI/CD Pipeline',
+      tagline: 'Dockerized Multi-Service App on AWS',
+      shortDesc: 'End-to-end GitHub Actions pipelines for a full-stack app across 3 AWS EC2 environments with automated testing, linting, and container orchestration.',
+      details: [
+        'Engineered end-to-end GitHub Actions pipelines for a full-stack app (React + Node.js) across 3 AWS EC2 environments (Dev, Testing, Staging) with automated build, ESLint analysis, unit testing, and email notifications on success/failure',
+        'Containerized all services with Docker Compose, pushed images to AWS ECR, and configured IAM roles for secure credential-free pulls; enforced branch protection across all environments'
+      ],
+      stack: ['AWS', 'GitHub Actions', 'Docker', 'ECR', 'React', 'Node.js'],
+      categories: ['devops'],
+      date: 'Apr 2026',
+      github: '',
+      liveUrl: ''
+    },
+    {
+      id: 'rizq-rescue',
+      name: 'Rizq Rescue Agent',
+      tagline: 'AI Voice Agent for Food Rescue',
+      shortDesc: 'AI-powered voice agent connecting restaurants and NGOs, ensuring surplus food reaches those in need through natural voice interactions and real-time tracking.',
+      details: [
+        'Built an AI-powered voice agent acting as an intelligent intermediary between restaurants/wedding halls and NGOs, ensuring surplus food reaches those in need instead of ending up in the trash',
+        'Collects food details via natural voice interactions using Soniox for speech recognition and ElevenLabs for synthesis, extracts structured donation data using Google Gemini Flash',
+        'Instantly notifies relevant NGOs and updates a real-time Next.js dashboard for tracking and transparency'
+      ],
+      stack: ['Soniox', 'Google Gemini Flash', 'ElevenLabs', 'FastAPI', 'Next.js'],
+      categories: ['fullstack', 'ai'],
+      date: '2026',
+      github: '',
+      liveUrl: ''
+    },
+    {
+      id: 'pulse',
+      name: 'Pulse',
+      tagline: 'AI Powered Productivity App',
+      shortDesc: 'AI-powered productivity platform focused on single-task focus, smart scheduling, and habit optimization using intelligent behavior pattern analysis.',
+      details: [
+        'Generated revenue from 15 paying customers within the first month of launch, acquiring 50 users on a full-stack AI productivity platform (React, FastAPI, PostgreSQL, Gemini API)',
+        'Shipped 5 core features including single-task focus mode, AI-driven schedule generation, and habit optimization, combining Google Gemini with custom-built recommendation algorithms to personalize daily plans'
+      ],
+      stack: ['React', 'FastAPI', 'PostgreSQL', 'Gemini API'],
+      categories: ['fullstack', 'ai'],
+      date: 'Dec 2025',
+      github: '',
+      liveUrl: ''
+    },
+    {
+      id: 'rahgir',
+      name: 'Rahgir',
+      tagline: 'Ride Booking Platform',
+      shortDesc: 'City-wide ride booking platform with real-time traffic data integration into the booking algorithm for improved route efficiency.',
+      details: [
+        'Developed a city-wide ride booking platform with real-time traffic data integration for optimal route calculation',
+        'Built the full-stack application using Flask for the backend with HTML, CSS, and JavaScript for a responsive frontend interface'
+      ],
+      stack: ['Flask', 'HTML', 'CSS', 'JavaScript'],
+      categories: ['fullstack'],
+      date: 'Mar – May 2025',
+      github: '',
+      liveUrl: ''
+    },
+    {
+      id: 'risc-v',
+      name: 'RISC-V Processor Design',
+      tagline: 'Educational Processor Implementation',
+      shortDesc: 'Educational RISC-V processor implementation in Verilog with ALU, control unit, and register file demonstrating core processor functionality.',
+      details: [
+        'Implemented a complete RISC-V processor in Verilog including ALU, control unit, and register file',
+        'Demonstrated core processor functionality with instruction fetch, decode, execute, and writeback stages'
+      ],
+      stack: ['Verilog', 'RISC-V', 'Computer Architecture', 'Digital Logic'],
+      categories: ['systems'],
+      date: '2025',
+      github: '',
+      liveUrl: ''
+    },
+    {
+      id: 'domjudge',
+      name: 'DOMjudge Automated Deployment',
+      tagline: 'Contest System Automation',
+      shortDesc: 'Bash script automating deployment of a multi-service contest system with CLI flags and Docker Compose configuration.',
+      details: [
+        'Authored a Bash script to fully automate deployment of a multi-service contest system (domserver, judgehost, MariaDB) with CLI flags for deploy, teardown, start/stop, and dynamic judgehost scaling',
+        'Converted the Bash setup into a declarative Docker Compose configuration replicating identical behavior with persistent DB volumes and auto-prefixed container/network naming'
+      ],
+      stack: ['Bash', 'Docker', 'Docker Compose', 'MariaDB', 'Linux'],
+      categories: ['devops'],
+      date: '2025',
+      github: '',
+      liveUrl: ''
+    },
+    {
+      id: 'lamp-stack',
+      name: 'LAMP Stack Automation',
+      tagline: 'Production-Style Bash Installer',
+      shortDesc: 'Production-style Bash installer with full CLI argument parsing, automating install/removal of Apache/Nginx, PHP, and MySQL.',
+      details: [
+        'Built a production-style Bash installer with full CLI argument parsing, automating install/removal of Apache/Nginx (with conflict detection), PHP modules, and MySQL with auto-generated root password',
+        'Implemented timestamped activity logging and idempotency — detects pre-existing services and prompts before overwriting or removing'
+      ],
+      stack: ['Bash', 'Apache', 'Nginx', 'MySQL', 'PHP', 'Linux'],
+      categories: ['devops'],
+      date: '2025',
+      github: '',
+      liveUrl: ''
+    },
+    {
+      id: 'system-health',
+      name: 'System Health Monitor',
+      tagline: 'Automated System Reporting',
+      shortDesc: 'Bash script collecting CPU, memory, disk stats and generating formatted HTML reports auto-hosted on Nginx.',
+      details: [
+        'Authored system_health.sh — collects CPU, memory, swap, disk, and partition stats via awk, free, df, and /proc filesystem; generates a formatted HTML report auto-hosted on Nginx',
+        'Implemented exit-code error handling on deployment failure and heredoc-based HTML templating for clean, readable system snapshot'
+      ],
+      stack: ['Bash', 'Nginx', 'Linux', 'HTML'],
+      categories: ['devops'],
+      date: '2025',
+      github: '',
+      liveUrl: ''
+    },
+    {
+      id: 'elevator',
+      name: 'Elevator Control System',
+      tagline: 'Digital Logic Controller',
+      shortDesc: 'Hardware/software elevator controller using digital logic design principles with efficient queue management and real-time control.',
+      details: [
+        'Designed and built a hardware/software elevator controller using digital logic design principles',
+        'Implemented efficient queue management and real-time control system for multi-floor operation'
+      ],
+      stack: ['Digital Logic', 'Hardware', 'C'],
+      categories: ['systems'],
+      date: '2024',
+      github: '',
+      liveUrl: ''
+    },
+    {
+      id: 'cashflow',
+      name: 'Cash Flow Minimizer',
+      tagline: 'Transaction Optimization Tool',
+      shortDesc: 'Terminal app optimizing cash flow management across accounts, analyzing transaction patterns to minimize transfers.',
+      details: [
+        'Built a terminal application for optimizing cash flow management across multiple accounts',
+        'Analyzes transaction patterns to minimize the number of transfers and prioritize urgent expenses using graph-based algorithms'
+      ],
+      stack: ['Python', 'Algorithms', 'CLI'],
+      categories: ['systems'],
+      date: '2024',
+      github: '',
+      liveUrl: ''
+    },
+    {
+      id: 'lms',
+      name: 'Learning Management System',
+      tagline: 'Grade Processing Platform',
+      shortDesc: 'Grade processing tool handling CSV student data and generating statistical results for up to 500 students with role-based dashboards.',
+      details: [
+        'Developed a grade processing tool that handles CSV student data and generates comprehensive statistical results for up to 500 students',
+        'Implemented role-based dashboards for administrators and instructors with data visualization capabilities'
+      ],
+      stack: ['Python', 'Flask', 'HTML/CSS', 'JavaScript'],
+      categories: ['fullstack'],
+      date: 'Jul – Aug 2023',
+      github: '',
+      liveUrl: ''
+    }
+  ];
+
+  const categoryLabels = {
+    all: 'All',
+    fullstack: 'Full Stack',
+    ai: 'AI / ML',
+    devops: 'DevOps',
+    systems: 'Systems'
+  };
+
+  function getProjects() {
+    try {
+      const stored = localStorage.getItem('portfolio_projects');
+      if (stored) return JSON.parse(stored);
+    } catch(e) {}
+    return defaultProjects;
+  }
+
+  function getResume() {
+    try {
+      const stored = localStorage.getItem('portfolio_resume');
+      if (stored) return stored;
+    } catch(e) {}
+    return './moaz-nadeem-resume.pdf';
+  }
+
+  // Update resume link from admin data
+  (function updateResume() {
+    const resumeUrl = getResume();
+    const resumeLink = document.querySelector('a[href*="resume"]');
+    if (resumeLink) resumeLink.href = resumeUrl;
+  })();
+
+  // ===== RENDER PROJECTS =====
+  let activeFilter = 'all';
+  const projects = getProjects();
+
+  function renderFilters() {
+    const container = document.getElementById('projectFilters');
+    const cats = new Set(['all']);
+    projects.forEach(p => p.categories.forEach(c => cats.add(c)));
+    container.innerHTML = '';
+    cats.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.className = 'filter-btn' + (cat === activeFilter ? ' active' : '');
+      btn.textContent = categoryLabels[cat] || cat;
+      btn.onclick = () => {
+        activeFilter = cat;
+        renderFilters();
+        renderProjects();
+      };
+      container.appendChild(btn);
+    });
+  }
+
+  function renderProjects() {
+    const grid = document.getElementById('projectsGrid');
+    const filtered = activeFilter === 'all' ? projects : projects.filter(p => p.categories.includes(activeFilter));
+    grid.innerHTML = '';
+    filtered.forEach((p, i) => {
+      const card = document.createElement('div');
+      card.className = 'project-card reveal visible';
+      card.style.transitionDelay = (i * 0.05) + 's';
+      card.style.animationDelay = (i * 0.05) + 's';
+
+      const dots = p.categories.map(c => '<span class="cat-dot ' + c + '" title="' + (categoryLabels[c]||c) + '"></span>').join('');
+
+      card.innerHTML =
+        '<div class="card-category-dots">' + dots + '</div>' +
+        '<div class="project-number">' + String(i + 1).padStart(2, '0') + '</div>' +
+        '<div class="project-name">' + p.name + '</div>' +
+        '<div class="project-desc">' + p.shortDesc + '</div>' +
+        '<div class="project-stack">' + p.stack.map(s => '<span class="stack-tag">' + s + '</span>').join('') + '</div>' +
+        '<div class="project-date">' + p.date + '</div>';
+
+      card.addEventListener('click', () => openProjectModal(p));
+      grid.appendChild(card);
+    });
+  }
+
+  // ===== PROJECT MODAL =====
+  function openProjectModal(p) {
+    const overlay = document.getElementById('projectModal');
+    document.getElementById('modalCategories').innerHTML = p.categories.map(c =>
+      '<span class="modal-category">' + (categoryLabels[c]||c) + '</span>'
+    ).join('');
+    document.getElementById('modalTitle').textContent = p.name;
+    document.getElementById('modalTagline').textContent = p.tagline;
+    document.getElementById('modalDate').textContent = p.date;
+    document.getElementById('modalDetails').innerHTML = p.details.map(d =>
+      '<li>' + d + '</li>'
+    ).join('');
+    document.getElementById('modalStack').innerHTML = p.stack.map(s =>
+      '<span class="stack-tag">' + s + '</span>'
+    ).join('');
+
+    let linksHtml = '';
+    if (p.github) {
+      linksHtml += '<a href="' + p.github + '" target="_blank" rel="noopener noreferrer" class="modal-link"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>GitHub</a>';
+    }
+    if (p.liveUrl) {
+      linksHtml += '<a href="' + p.liveUrl + '" target="_blank" rel="noopener noreferrer" class="modal-link"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Live Demo</a>';
+    }
+    document.getElementById('modalLinks').innerHTML = linksHtml;
+
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  document.getElementById('projectModal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  function closeModal() {
+    document.getElementById('projectModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  renderFilters();
+  renderProjects();
+
+  // ===== ADMIN DATA INTEGRATION =====
+  (function applyAdminData() {
+    // Hero
+    try {
+      const hero = JSON.parse(localStorage.getItem('portfolio_hero'));
+      if (hero) {
+        const labelEl = document.querySelector('.hero-label');
+        if (labelEl && hero.label) labelEl.textContent = hero.label;
+        const nameEl = document.querySelector('.hero-name');
+        if (nameEl && hero.firstName) nameEl.innerHTML = hero.firstName + '<br><span class="accent">' + (hero.lastName || '') + '</span>';
+        const subEl = document.querySelector('.hero-sub');
+        if (subEl && hero.subtitle) subEl.textContent = hero.subtitle;
+        const emailLink = document.querySelector('a[href^="mailto:"]');
+        if (emailLink && hero.email) emailLink.href = 'mailto:' + hero.email;
+      }
+    } catch(e) {}
+
+    // About
+    try {
+      const about = JSON.parse(localStorage.getItem('portfolio_about'));
+      if (about) {
+        const paragraphs = document.querySelectorAll('.about-text p');
+        if (about.paragraphs) {
+          about.paragraphs.forEach((p, i) => { if (paragraphs[i]) paragraphs[i].innerHTML = p; });
+        }
+        if (about.stats) {
+          const statVals = document.querySelectorAll('.stat-value');
+          const statLabels = document.querySelectorAll('.stat-label');
+          about.stats.forEach((s, i) => {
+            if (statVals[i]) statVals[i].textContent = s.value;
+            if (statLabels[i]) statLabels[i].textContent = s.label;
+          });
+        }
+        if (about.education) {
+          const inst = document.querySelector('.edu-institute');
+          const deg = document.querySelector('.edu-degree');
+          const meta = document.querySelector('.edu-meta');
+          const coursesGrid = document.querySelector('.courses-grid');
+          if (inst) inst.textContent = about.education.institute || '';
+          if (deg) deg.textContent = about.education.degree || '';
+          if (meta) meta.textContent = (about.education.period || '') + ' \u00B7 CGPA: ' + (about.education.gpa || '');
+          if (coursesGrid && about.education.courses) {
+            coursesGrid.innerHTML = about.education.courses.split(',').map(c =>
+              '<span class="course-tag">' + c.trim() + '</span>'
+            ).join('');
+          }
+        }
+      }
+    } catch(e) {}
+
+    // Experience
+    try {
+      const exps = JSON.parse(localStorage.getItem('portfolio_experience'));
+      if (exps) {
+        const container = document.querySelector('.exp-inner');
+        const label = container.querySelector('.section-label');
+        const title = container.querySelector('.section-title');
+        container.innerHTML = '';
+        container.appendChild(label);
+        container.appendChild(title);
+        exps.forEach(exp => {
+          const item = document.createElement('div');
+          item.className = 'exp-item reveal';
+          item.innerHTML =
+            '<div class="exp-meta"><span class="company">' + exp.company + '</span>' + exp.period + '</div>' +
+            '<div><div class="exp-title">' + exp.title + '</div>' +
+            '<ul class="exp-points">' + exp.points.map(p => '<li>' + p + '</li>').join('') + '</ul></div>';
+          container.appendChild(item);
+        });
+        container.querySelectorAll('.reveal').forEach(el => io.observe(el));
+      }
+    } catch(e) {}
+
+    // Skills
+    try {
+      const skills = JSON.parse(localStorage.getItem('portfolio_skills'));
+      if (skills) {
+        const layout = document.querySelector('.skills-layout');
+        if (layout) {
+          layout.innerHTML = skills.map(group =>
+            '<div class="skill-group">' +
+            '<div class="skill-group-label">' + group.label + '</div>' +
+            '<div class="skill-list">' + group.items.map(s => '<span class="skill-chip">' + s + '</span>').join('') + '</div>' +
+            '</div>'
+          ).join('');
+        }
+      }
+    } catch(e) {}
+  })();
+
+  // ===== ORIGINAL FEATURES =====
+
   // Cursor
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursorRing');
